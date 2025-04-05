@@ -82,10 +82,32 @@ function ExpenseChart() {
       return prev.filter((e) => e.id !== id);
     });
   };
+
   return (
     <div className="container" data-testid="app-root">
       <main>
         <h1 data-testid="app-title">Expense Tracker</h1>
+
+        {/* Added Cards Section */}
+        <div
+          className="cards-container"
+          style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginTop: "1rem" }}
+        >
+          {/* Wallet Balance Card */}
+          <div data-testid="wallet-balance-card" className="card">
+            <h2>Wallet Balance</h2>
+            <p data-testid="wallet-balance">₹{balance}</p>
+          </div>
+
+          {/* Expenses Card */}
+          <div data-testid="expenses-card" className="card">
+            <h2>Expenses</h2>
+            <p>
+              Total: ₹
+              {expenses.reduce((sum, item) => sum + parseFloat(item.price || 0), 0)}
+            </p>
+          </div>
+        </div>
 
         <div className="balance-section">
           <h2 className="wallet-balance" data-testid="wallet-balance">
