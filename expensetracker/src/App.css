@@ -1,0 +1,35 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 1rem;
+  font-family: sans-serif;
+}
+
+.balance-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: #f3f3f3;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 6px;
+}
+
+.expense-list {
+  margin-top: 2rem;
+}
+
+.expense-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background: #eee;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+}
