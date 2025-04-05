@@ -72,15 +72,17 @@ function ExpenseChart() {
   };
 
   return (
-    <div className="container">
-      <h1>Expense Tracker</h1>
-
+    <div className="container" data-testid="app-root">
+      <h1 data-testid="app-title">Expense Tracker</h1>
+  
       <div className="balance-section">
-        <h2 className="wallet-balance">Wallet Balance: ₹{balance}</h2>
+        <h2 className="wallet-balance" data-testid="wallet-balance">
+          Wallet Balance: ₹{balance}
+        </h2>
         <button type="button" onClick={() => setShowBalanceForm(true)}>+ Add Income</button>
         <button type="button" onClick={() => setShowExpenseForm(true)}>+ Add Expense</button>
       </div>
-
+  
       {showBalanceForm && (
         <form onSubmit={handleAddIncome} className="modal">
           <input
@@ -93,7 +95,7 @@ function ExpenseChart() {
           <button type="button" onClick={() => setShowBalanceForm(false)}>Cancel</button>
         </form>
       )}
-
+  
       {showExpenseForm && (
         <form onSubmit={handleExpenseSubmit} className="modal">
           <input
@@ -139,8 +141,8 @@ function ExpenseChart() {
           <button type="button" onClick={() => setShowExpenseForm(false)}>Cancel</button>
         </form>
       )}
-
-      <div className="expense-list">
+  
+      <div className="expense-list" data-testid="expense-list">
         <h2>Recent Transactions</h2>
         {expenses.length === 0 && <p>No expenses yet.</p>}
         {expenses.map((exp) => (
@@ -155,6 +157,7 @@ function ExpenseChart() {
       </div>
     </div>
   );
+  
 }
 
 export default ExpenseChart;

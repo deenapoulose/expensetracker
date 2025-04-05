@@ -1,9 +1,7 @@
-/* App.css */
-
 .container {
-  padding: 2rem;
+  padding: 1rem;
   max-width: 800px;
-  margin: 0 auto;
+  margin: auto;
 }
 
 .modal {
@@ -15,8 +13,10 @@
 
 .balance-section {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -29,15 +29,22 @@
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 @media (max-width: 600px) {
-  .expense-card {
-    width: 100%;
-    box-sizing: border-box;
+  .container {
+    padding: 1rem;
   }
 
   .balance-section {
+    flex-direction: column;
     align-items: flex-start;
+  }
+
+  .expense-card {
+    width: 100%;
   }
 }
