@@ -30,11 +30,24 @@
   margin-bottom: 1rem;
   border-radius: 8px;
 }
-
 @media (max-width: 600px) {
   .balance-section {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .modal {
+    width: 100%;
+  }
+
+  .expense-card {
+    font-size: 14px;
+    padding: 1rem;
+  }
+
+  .transactions-section {
+    flex-direction: column;
   }
 
   .modal input,
@@ -42,8 +55,9 @@
   .modal button {
     width: 100%;
   }
-
-  .expense-card {
-    font-size: 14px;
-  }
 }
+
+
+
+
+
