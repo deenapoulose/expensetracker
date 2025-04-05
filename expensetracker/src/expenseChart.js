@@ -82,10 +82,11 @@ function ExpenseChart() {
       return prev.filter((e) => e.id !== id);
     });
   };
-
   return (
     <div className="container" data-testid="app-root">
-      <h1 data-testid="app-title">Expense Tracker</h1>
+      <main>
+        <h1 data-testid="app-title">Expense Tracker</h1>
+  
 
       <div className="balance-section">
         <h2 className="wallet-balance" data-testid="wallet-balance">
@@ -177,7 +178,8 @@ function ExpenseChart() {
             </div>
           ))}
       </div>
-    </div>
+      </main>
+      </div>
   );
 }
 
