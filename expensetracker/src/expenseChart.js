@@ -75,8 +75,8 @@ function ExpenseChart() {
 
       <div className="balance-section">
         <h2>Wallet Balance: ₹{balance}</h2>
-        <button onClick={() => setShowBalanceForm(true)}>+ Add Income</button>
-        <button onClick={() => setShowExpenseForm(true)}>+ Add Expense</button>
+        <button type="button" onClick={() => setShowBalanceForm(true)}>+ Add Income</button>
+        <button type="button" onClick={() => setShowExpenseForm(true)}>+ Add Expense</button>
       </div>
 
       {showBalanceForm && (
