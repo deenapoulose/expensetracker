@@ -31,7 +31,10 @@ function ExpenseChart() {
   const handleAddIncome = (e) => {
     e.preventDefault();
     const amount = parseFloat(incomeAmount);
-    if (!amount || amount <= 0) return;
+    if (!amount || amount <= 0) {
+      alert("Please enter a valid income amount greater than 0.");
+      return;
+    }
 
     setBalance((prev) => prev + amount);
     setIncomeAmount("");
@@ -42,9 +45,17 @@ function ExpenseChart() {
     e.preventDefault();
     const { title, price, category, date } = expenseData;
 
-    if (!title || !price || !category || !date) return;
+    if (!title || !price || !category || !date) {
+      alert("Please fill out all the fields before submitting.");
+      return;
+    }
 
     const priceNum = parseFloat(price);
+    if (priceNum <= 0) {
+      alert("Expense amount should be greater than 0.");
+      return;
+    }
+
     if (priceNum > balance) {
       alert("You cannot spend more than your wallet balance!");
       return;
@@ -64,17 +75,18 @@ function ExpenseChart() {
   };
 
   const handleDelete = (id) => {
-    const toDelete = expenses.find((e) => e.id === id);
-    if (toDelete) {
-      setBalance((prev) => prev + toDelete.price);
-      setExpenses((prev) => prev.filter((e) => e.id !== id));
-    }
+    setExpenses((prev) => {
+      const toDelete = prev.find((e) => e.id === id);
+      if (!toDelete) return prev;
+      setBalance((bal) => bal + toDelete.price);
+      return prev.filter((e) => e.id !== id);
+    });
   };
 
   return (
     <div className="container" data-testid="app-root">
       <h1 data-testid="app-title">Expense Tracker</h1>
-  
+
       <div className="balance-section">
         <h2 className="wallet-balance" data-testid="wallet-balance">
           Wallet Balance: ₹{balance}
@@ -82,12 +94,15 @@ function ExpenseChart() {
         <button type="button" onClick={() => setShowBalanceForm(true)}>+ Add Income</button>
         <button type="button" onClick={() => setShowExpenseForm(true)}>+ Add Expense</button>
       </div>
-  
+
       {showBalanceForm && (
         <form onSubmit={handleAddIncome} className="modal">
           <input
+            name="incomeAmount"
             type="number"
+            min="1"
             placeholder="Income Amount"
+            required
             value={incomeAmount}
             onChange={(e) => setIncomeAmount(e.target.value)}
           />
@@ -95,12 +110,13 @@ function ExpenseChart() {
           <button type="button" onClick={() => setShowBalanceForm(false)}>Cancel</button>
         </form>
       )}
-  
+
       {showExpenseForm && (
         <form onSubmit={handleExpenseSubmit} className="modal">
           <input
             name="title"
             placeholder="Title"
+            required
             value={expenseData.title}
             onChange={(e) =>
               setExpenseData({ ...expenseData, title: e.target.value })
@@ -110,6 +126,8 @@ function ExpenseChart() {
             name="price"
             type="number"
             placeholder="Amount"
+            required
+            min="1"
             value={expenseData.price}
             onChange={(e) =>
               setExpenseData({ ...expenseData, price: e.target.value })
@@ -117,6 +135,7 @@ function ExpenseChart() {
           />
           <select
             name="category"
+            required
             value={expenseData.category}
             onChange={(e) =>
               setExpenseData({ ...expenseData, category: e.target.value })
@@ -132,6 +151,7 @@ function ExpenseChart() {
           <input
             name="date"
             type="date"
+            required
             value={expenseData.date}
             onChange={(e) =>
               setExpenseData({ ...expenseData, date: e.target.value })
@@ -141,23 +161,24 @@ function ExpenseChart() {
           <button type="button" onClick={() => setShowExpenseForm(false)}>Cancel</button>
         </form>
       )}
-  
+
       <div className="expense-list" data-testid="expense-list">
         <h2>Recent Transactions</h2>
         {expenses.length === 0 && <p>No expenses yet.</p>}
-        {expenses.map((exp) => (
-          <div key={exp.id} className="expense-card">
-            <p><strong>{exp.title}</strong></p>
-            <p>₹{exp.price}</p>
-            <p>{exp.category}</p>
-            <p>{exp.date}</p>
-            <button onClick={() => handleDelete(exp.id)}>Delete</button>
-          </div>
-        ))}
+        {[...expenses]
+          .sort((a, b) => new Date(b.date) - new Date(a.date))
+          .map((exp) => (
+            <div key={exp.id} className="expense-card">
+              <p><strong>{exp.title}</strong></p>
+              <p>₹{exp.price}</p>
+              <p>{exp.category}</p>
+              <p>{new Date(exp.date).toLocaleDateString()}</p>
+              <button onClick={() => handleDelete(exp.id)}>Delete</button>
+            </div>
+          ))}
       </div>
     </div>
   );
-  
 }
 
 export default ExpenseChart;
