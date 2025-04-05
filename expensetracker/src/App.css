@@ -1,24 +1,23 @@
-.container {
-  max-width: 800px;
-  margin: auto;
-  padding: 1rem;
-  font-family: sans-serif;
-}
+/* App.css */
 
-.balance-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .modal {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.balance-section {
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
-  background: #f3f3f3;
-  padding: 1rem;
-  margin: 1rem 0;
-  border-radius: 6px;
+  margin-bottom: 1rem;
 }
 
 .expense-list {
@@ -26,10 +25,19 @@
 }
 
 .expense-card {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.75rem;
-  background: #eee;
-  margin-bottom: 0.5rem;
-  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+  .expense-card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .balance-section {
+    align-items: flex-start;
+  }
 }

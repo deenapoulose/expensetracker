@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import './App.css';
 
 function ExpenseChart() {
-  const [balance, setBalance] = useState(() =>
-    parseFloat(localStorage.getItem("walletBalance")) || 5000
-  );
+  const [balance, setBalance] = useState(() => {
+    const stored = localStorage.getItem("walletBalance");
+    return stored !== null ? parseFloat(stored) : 5000;
+  });
 
   const [expenses, setExpenses] = useState(() =>
     JSON.parse(localStorage.getItem("expenses")) || []
@@ -23,15 +24,16 @@ function ExpenseChart() {
   const [incomeAmount, setIncomeAmount] = useState("");
 
   useEffect(() => {
-    localStorage.setItem("walletBalance", balance);
+    localStorage.setItem("walletBalance", balance.toString());
     localStorage.setItem("expenses", JSON.stringify(expenses));
   }, [balance, expenses]);
 
   const handleAddIncome = (e) => {
     e.preventDefault();
-    if (!incomeAmount || parseFloat(incomeAmount) <= 0) return;
+    const amount = parseFloat(incomeAmount);
+    if (!amount || amount <= 0) return;
 
-    setBalance((prev) => prev + parseFloat(incomeAmount));
+    setBalance((prev) => prev + amount);
     setIncomeAmount("");
     setShowBalanceForm(false);
   };
@@ -74,7 +76,7 @@ function ExpenseChart() {
       <h1>Expense Tracker</h1>
 
       <div className="balance-section">
-        <h2>Wallet Balance: ₹{balance}</h2>
+        <h2 className="wallet-balance">Wallet Balance: ₹{balance}</h2>
         <button type="button" onClick={() => setShowBalanceForm(true)}>+ Add Income</button>
         <button type="button" onClick={() => setShowExpenseForm(true)}>+ Add Expense</button>
       </div>
@@ -123,6 +125,7 @@ function ExpenseChart() {
             <option value="Shopping">Shopping</option>
             <option value="Bills">Bills</option>
             <option value="Travel">Travel</option>
+            <option value="Entertainment">Entertainment</option>
           </select>
           <input
             name="date"
